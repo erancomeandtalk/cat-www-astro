@@ -17,16 +17,9 @@ Use Node 22 (`nvm use` picks it up from `.nvmrc`).
 
 Pushing to git deploys automatically.
 
-## Switches (`src/config.ts`)
+## Settings
 
-| Setting                    | What it does                                                                        |
-| :------------------------- | :---------------------------------------------------------------------------------- |
-| `PLAY_STORE_LIVE`          | `true`: Google Play badge links to the listing. `false`: greyed out, "Coming soon". |
-| `FOUNDERS_ENROLLMENT_OPEN` | `false`: Founders Club page shows "enrollment closed" (terms stay); Home hides the teaser. |
-| `ALLOW_INDEXING`           | `false` until launch: `noindex` on every page and `Disallow: /` in robots.txt.       |
-| `CF_ANALYTICS_TOKEN`       | Cloudflare Web Analytics token. Empty = no snippet.                                 |
-
-Store URLs, support email and company name are in the same file.
+Store URLs, support email and company name are in `src/config.ts`. Web Analytics is turned on in the Cloudflare dashboard, not in code.
 
 ## Where things are
 

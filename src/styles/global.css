@@ -418,17 +418,6 @@ a.store-badge:hover {
 	transform: translateY(-2px);
 }
 
-.store-badge.is-soon img {
-	opacity: 0.45;
-}
-
-.store-badge__soon {
-	color: var(--c-text-soft);
-	font-size: 0.75rem;
-	font-weight: 600;
-	line-height: 1.2;
-}
-
 /* Android visitors see Google Play first (data-platform is set in SEO.astro). */
 [data-platform="android"] .store-badge--play {
 	order: -1;
@@ -717,22 +706,6 @@ a.store-badge:hover {
 .checklist .icon {
 	margin-block-start: 0.25rem;
 	color: var(--c-green);
-}
-
-.notice {
-	display: flex;
-	align-items: flex-start;
-	gap: 0.75rem;
-	max-width: 44rem;
-	padding: 1rem 1.25rem;
-	border-radius: var(--radius);
-	background: var(--c-blue-soft);
-	color: var(--c-text);
-}
-
-.notice .icon {
-	margin-block-start: 0.1rem;
-	color: var(--c-link);
 }
 
 /* ---------- Home: hero ---------- */

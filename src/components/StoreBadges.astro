@@ -1,5 +1,5 @@
 ---
-import { APP_STORE_URL, PLAY_STORE_LIVE, PLAY_STORE_URL } from "../config";
+import { APP_STORE_URL, PLAY_STORE_URL } from "../config";
 import { useTranslations, type Lang } from "../i18n";
 
 // Official store badges. Apple's SVG is 119.66×40; Google's PNG was trimmed of
@@ -22,18 +22,7 @@ const classes = ["store-badges", `store-badges--${size}`, center && "store-badge
 	<a class="store-badge store-badge--apple" href={APP_STORE_URL}>
 		<img src="/badges/app-store.svg" alt={t.badges.appStore} width="150" height="50" />
 	</a>
-	{
-		PLAY_STORE_LIVE ? (
-			<a class="store-badge store-badge--play" href={PLAY_STORE_URL}>
-				<img src="/badges/google-play.png" alt={t.badges.googlePlay} width="168" height="50" />
-			</a>
-		) : (
-			<span class="store-badge store-badge--play is-soon">
-				<img src="/badges/google-play.png" alt={t.badges.googlePlaySoon} width="168" height="50" />
-				<span class="store-badge__soon" aria-hidden="true">
-					{t.badges.comingSoon}
-				</span>
-			</span>
-		)
-	}
+	<a class="store-badge store-badge--play" href={PLAY_STORE_URL}>
+		<img src="/badges/google-play.png" alt={t.badges.googlePlay} width="168" height="50" />
+	</a>
 </div>

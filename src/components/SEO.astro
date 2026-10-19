@@ -1,5 +1,5 @@
 ---
-import { ALLOW_INDEXING, CF_ANALYTICS_TOKEN, SITE_URL } from "../config";
+import { SITE_URL } from "../config";
 import { languages, ogLocales, otherLang, pathFor, type Lang, type PageKey } from "../i18n";
 
 interface Props {
@@ -16,7 +16,6 @@ const { lang, page, title, description, noindex = false } = Astro.props;
 
 const absolute = (path: string) => new URL(path, SITE_URL).href;
 const canonical = page ? absolute(pathFor(page, lang)) : undefined;
-const robots = ALLOW_INDEXING && !noindex ? "index, follow" : "noindex, nofollow";
 const ogImage = absolute("/og-image.jpg");
 const langCodes = Object.keys(languages) as Lang[];
 ---
@@ -25,7 +24,7 @@ const langCodes = Object.keys(languages) as Lang[];
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content={description} />
-<meta name="robots" content={robots} />
+{noindex && <meta name="robots" content="noindex" />}
 <meta name="color-scheme" content="light dark" />
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0c111c" media="(prefers-color-scheme: dark)" />
@@ -64,14 +63,3 @@ const langCodes = Object.keys(languages) as Lang[];
 		root.classList.add("js");
 	})();
 </script>
-
-{
-	CF_ANALYTICS_TOKEN && (
-		<script
-			is:inline
-			defer
-			src="https://static.cloudflareinsights.com/beacon.min.js"
-			data-cf-beacon={JSON.stringify({ token: CF_ANALYTICS_TOKEN })}
-		></script>
-	)
-}

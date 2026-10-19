@@ -76,7 +76,7 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
 | Page | English URL | Hebrew URL | Content |
 |---|---|---|---|
 | Home | `/` | `/he/` | Marketing and download page. Also the landing page for links shared from the app. |
-| Founders Club | `/founders-club` | `/he/founders-club` | Explainer (changes when enrollment is open or closed) plus the full terms, word for word |
+| Founders Club | `/founders-club` | `/he/founders-club` | Explainer plus the full terms, word for word |
 | Privacy Policy & Terms | `/privacy` | `/he/privacy` | Same text as the live site, word for word. The store listings will point here. |
 | Child Safety (CSAE) | `/child-safety` | `/he/child-safety` | Word for word. URL for Play Console's child-safety field. |
 | **Delete your account** | `/delete-account` | `/he/delete-account` | **New.** Google Play requires a web page where users can request deletion outside the app. The URL goes in Play Console's "Delete account URL" field. Contents in §3.4. |
@@ -107,7 +107,7 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
    - block and report, with repeat offenders suspended
    - delete your account at any time
    - links to Child Safety and Delete Account
-6. **Founders Club band.** Only shown while enrollment is open (§3.2).
+6. **Founders Club band:** teaser linking to `/founders-club`.
 7. **Short FAQ:** visible on the page, but **without FAQPage structured data** (Google no longer shows FAQ rich results for sites like this). Questions:
    - Who can see me?
    - How do I hide?
@@ -117,17 +117,13 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
    - How do I report someone?
 8. **Final call to action:** store badges.
 
-**Google Play at launch:** the badge links to the agreed Play URL. Before pushing the launch, set `PLAY_STORE_LIVE` deliberately:
-- `true`: the badge links to Play.
-- `false`: the badge shows a greyed-out "Coming soon", so Android visitors get an accurate message.
+**Google Play:** the badge always links to the agreed Play URL. It shows "not found" until the listing is published.
 
 ### 3.2 Founders Club page
 
-**Enrollment states** (`FOUNDERS_ENROLLMENT_OPEN` in `src/config.ts`):
-- **Open:** the invitation, how-to-join steps, and the full terms. Plus a teaser band on Home.
-- **Closed:** "Enrollment in the Founders Club is closed" and the full terms (they stay accessible). No teaser band on Home.
+When enrollment closes, edit the invitation text by hand and keep the terms on the page. There's no switch for this (Eran's decision, §13).
 
-**Draft copy (open state):**
+**Draft copy:**
 
 > **Join the Founders Club**
 > CAT is built together with its first members. Founders Club members who share CAT with friends are eligible to share in **10% of the company's distributable profits**, if and when the company decides to distribute profits.
@@ -208,7 +204,7 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
 | 4 | SEO (meta, Open Graph, canonical, hreflang) | ✅ |
 | 5 | JSON-LD | ✅ Organization + MobileApplication. ❌ **No FAQPage** markup (low value, per review) |
 | 6 | Sitemap (EN + HE) + robots.txt | ✅ |
-| 7 | **No indexing of the preview** | ✅ `ALLOW_INDEXING = false` until launch: `noindex` meta tag on every page and `Disallow: /` in robots.txt. Flip it in the launch commit. Canonical URLs always point at `https://www.come-and-talk.com`. |
+| 7 | **Preview indexing** | ❌ No switch. Nothing links to the preview, and every page's canonical URL points at `https://www.come-and-talk.com`. A forgotten launch-day flip would be riskier than the preview being crawled. |
 | 8 | `/join` deep-link page | ❌ Not needed |
 | 9 | Contact page, email only | ✅ |
 | 10 | Pricing / Blog / use-case pages | ❌ |
@@ -234,7 +230,6 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
 - **`src/config.ts`** holds:
   - store URLs and campaign parameters;
   - support email and company name;
-  - the switches `PLAY_STORE_LIVE`, `FOUNDERS_ENROLLMENT_OPEN` and `ALLOW_INDEXING`.
 - **Official store badges**, downloaded into `public/badges/` (approved by Eran). English badges on both languages: Apple's Hebrew badge couldn't be downloaded from here, and a mixed pair looked inconsistent.
 - **Redirects:** the template's `.assetsignore` excludes `_redirects`, so the 301s are small on-demand routes inside the Worker.
 - **URLs without a trailing slash** (`build.format: "file"`). Check how the trailing-slash variants behave on the preview (§12).
@@ -245,7 +240,7 @@ Today `www.come-and-talk.com` is a CNAME to `ghs.googlehosted.com` (Google Sites
 
 1. **Before launch:** test on the `*.workers.dev` URL. Nothing on the live domain changes.
 2. **Note the old record** for rollback: `www CNAME ghs.googlehosted.com`.
-3. Set `ALLOW_INDEXING = true` (and `PLAY_STORE_LIVE` as appropriate), then push.
+3. Make sure the approved version is pushed.
 4. **Delete** the `www` CNAME. Right away, in Workers → the worker → Settings → Domains & Routes, **add Custom Domain** `www.come-and-talk.com`. Cloudflare creates the record and the certificate. Expect a short gap between the two steps.
 5. **Bare domain:**
    1. Add a **proxied** DNS record for `come-and-talk.com`, for example `AAAA @ 100::` (proxied, orange cloud). A redirect rule alone isn't enough without one.
@@ -261,7 +256,7 @@ Today `www.come-and-talk.com` is a CNAME to `ghs.googlehosted.com` (Google Sites
 CLAUDE.md         working rules for future sessions
 .nvmrc            22
 src/
-  config.ts       store/campaign URLs, email, company, PLAY_STORE_LIVE, FOUNDERS_ENROLLMENT_OPEN, ALLOW_INDEXING
+  config.ts       store URLs, email, company name
   components/     Header, Footer, LanguageSwitcher, SEO, StoreBadges, FeatureCard, FAQ…
   layouts/        MainLayout.astro
   i18n/           en.ts, he.ts, utils.ts
@@ -304,7 +299,7 @@ public/
 
 | # | Topic | Decision |
 |---|---|---|
-| Q1 | Google Play | Agreed Play URL. `PLAY_STORE_LIVE` set deliberately at launch. |
+| Q1 | Google Play | Agreed Play URL, always linked. |
 | Q2 | Languages | EN + HE |
 | Q3 | Legal structure | Privacy & Terms + Child Safety + Founders Club + **Delete Account** |
 | Q4 | Founders Club copy | Claude drafts (§3.2), following the terms |
@@ -318,7 +313,7 @@ public/
 | — | Legal typo "klub" | Fixed; otherwise word for word |
 | — | Social links / rating badge | None for now |
 | Q-A | Audience | Broad mix: local conversation and meetups. Dating is one option, not the lead. |
-| Q-B | Launch timing | Both. The site works with the current iOS app now and with the Android/Flutter release later. `PLAY_STORE_LIVE` is flipped when the Play listing is published. |
+| Q-B | Launch timing | Both. The site works with the current iOS app now and with the Android/Flutter release later. The Play badge links to the listing from the start. |
 | Q-C | Founders Club date | The benefit program text stays as-is. The summary's date line follows the terms' own wording. |
 | Q-D | Deletion page | Generic wording in line with the privacy policy (§3.4) |
 | Q-E | Apple campaign token | Not needed. App Store Connect's Web Referrer report already shows website downloads by domain. |
@@ -338,13 +333,12 @@ No open questions remain.
    - store badges.
 2. **English pages:** Home, Founders Club (both states), Privacy & Terms, Child Safety, Delete Account, Contact, 404, legacy redirects.
 3. **Hebrew:** dictionary from the app's Hebrew terms, Hebrew legal texts, RTL pass.
-4. **SEO and launch prep:** sitemap, robots, hreflang, JSON-LD, social share image, favicons, analytics snippet, campaign links.
+4. **SEO and launch prep:** sitemap, robots, hreflang, JSON-LD, social share image, favicons, campaign links.
 5. **Hand-off:**
    1. Claude leaves the changes uncommitted.
    2. Eran installs, builds, tests (§12) and pushes. The push auto-deploys to `*.workers.dev`.
 6. **Pre-launch checks:**
    - Imprint decision (§3);
-   - `ALLOW_INDEXING` and `PLAY_STORE_LIVE` set;
    - store URLs ready to update.
 7. **Launch:** Eran does the switchover (§7.1).
 
@@ -361,8 +355,7 @@ No open questions remain.
 - [ ] Page URLs work with and without a trailing slash, and canonical URLs have no trailing slash.
 - [ ] An unknown URL returns **status 404** and the 404 page.
 - [ ] Store badges go to the correct URLs (with campaign parameters). iOS and Android visitors see their own store first.
-- [ ] `PLAY_STORE_LIVE` and `FOUNDERS_ENROLLMENT_OPEN` each render correctly when `true` and when `false`.
-- [ ] While `ALLOW_INDEXING = false`: every page has `noindex`, and `robots.txt` disallows everything.
+- [ ] Every page has a canonical URL on `https://www.come-and-talk.com`. Only the 404 page has `noindex`.
 - [ ] Keyboard only: skip link, visible focus, and the menu and language switcher work.
 - [ ] Contrast is readable in light and dark themes.
 - [ ] Mobile at 360px wide: no horizontal scrolling.
@@ -394,5 +387,6 @@ Expect a few errors on the first build, since the code was never compiled. Send 
 **Things to know:**
 - **Redirects** for the four old URLs are on-demand routes (`src/pages/english.ts` and the others). Two of them have Hebrew file names, which is how Astro matches `/עברית`. Check them on the preview (§12).
 - **Images:** the app artwork was copied into `src/assets/`. Favicons and the social share image (a crop of the splash illustration) were made with macOS `sips`. Astro optimizes the images at build time using `sharp`, which is already in the lockfile.
-- **Analytics:** `CF_ANALYTICS_TOKEN` is empty. Either paste the Web Analytics token, or turn on automatic setup for the domain in the Cloudflare dashboard after launch.
+- **Analytics:** no snippet in the code. After launch, turn on Web Analytics' automatic setup for `come-and-talk.com` in the Cloudflare dashboard.
+- **No switches (Eran's decision):** the planned `PLAY_STORE_LIVE`, `FOUNDERS_ENROLLMENT_OPEN`, `ALLOW_INDEXING` and analytics-token switches were removed. `src/config.ts` holds only store URLs, email and company name. `robots.txt` is a static file in `public/`.
 - **App links:** the app's settings screen also opens the site root for "Privacy Policy" and "Terms of Service" (`settings_screen.dart:403–413`), in addition to the sign-in screen (§4).

@@ -74,8 +74,6 @@ const en = {
 	badges: {
 		appStore: "Download on the App Store",
 		googlePlay: "Get it on Google Play",
-		googlePlaySoon: "Google Play: coming soon",
-		comingSoon: "Coming soon",
 	},
 
 	footer: {
@@ -227,8 +225,8 @@ const en = {
 
 	founders: {
 		eyebrow: "Founders Club",
-		openTitle: "Join the Founders Club",
-		openLead:
+		title: "Join the Founders Club",
+		lead:
 			"CAT is built together with its first members. Founders Club members who share CAT with friends are eligible to share in 10% of the Distributable Profit designated for distribution, if and when the company decides to distribute profits.",
 		howTitle: "How to join",
 		steps: [
@@ -245,9 +243,6 @@ const en = {
 			"If a distribution is made, you'll be notified and must complete identity verification within 30 days.",
 		],
 		disclaimer: "The full terms below are binding and take precedence over this summary.",
-		closedTitle: "CAT Founders Club",
-		closedNotice: "Enrollment in the Founders Club is closed.",
-		closedText: "The program terms remain available below.",
 		termsTitle: "Founders Club terms",
 	},
 

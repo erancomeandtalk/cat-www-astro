@@ -21,7 +21,7 @@ export default defineConfig({
 				defaultLocale: "en",
 				locales: { en: "en", he: "he" },
 			},
-			filter: (page) => !page.endsWith("/404") && !page.endsWith("/robots.txt"),
+			filter: (page) => !page.endsWith("/404"),
 		}),
 	],
 	adapter: cloudflare({

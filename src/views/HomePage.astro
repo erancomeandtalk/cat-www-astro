@@ -10,16 +10,7 @@ import catIcon from "../assets/cat-icon.png";
 import shotDiscover from "../assets/screenshots/discover.png";
 import shotMap from "../assets/screenshots/map.png";
 import shotNearby from "../assets/screenshots/nearby.png";
-import {
-	APP_NAME,
-	APP_STORE_URL,
-	COMPANY_NAME,
-	FOUNDERS_ENROLLMENT_OPEN,
-	PLAY_STORE_LIVE,
-	PLAY_STORE_URL,
-	SITE_URL,
-	SUPPORT_EMAIL,
-} from "../config";
+import { APP_NAME, APP_STORE_URL, COMPANY_NAME, PLAY_STORE_URL, SITE_URL, SUPPORT_EMAIL } from "../config";
 import { pathFor, useTranslations, type Lang } from "../i18n";
 
 interface Props {
@@ -59,9 +50,9 @@ const structuredData = {
 			name: APP_NAME,
 			description: t.meta.home.description,
 			applicationCategory: "LifestyleApplication",
-			operatingSystem: PLAY_STORE_LIVE ? "iOS, Android" : "iOS",
+			operatingSystem: "iOS, Android",
 			image: `${SITE_URL}/icon-512.png`,
-			downloadUrl: PLAY_STORE_LIVE ? [APP_STORE_URL, PLAY_STORE_URL] : [APP_STORE_URL],
+			downloadUrl: [APP_STORE_URL, PLAY_STORE_URL],
 			offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 			publisher: { "@id": organizationId },
 		},
@@ -210,32 +201,26 @@ const structuredData = {
 		</div>
 	</section>
 
-	<!-- Founders Club teaser (only while enrollment is open) -->
-	{
-		FOUNDERS_ENROLLMENT_OPEN && (
-			<section class="section" aria-labelledby="founders-band-title">
-				<div class="container">
-					<div class="band">
-						<Image src={mascot} alt="" width={150} densities={[1, 1.3]} class="band__mascot" />
-						<div class="band__copy">
-							<p class="eyebrow eyebrow--light">{h.foundersBand.eyebrow}</p>
-							<h2 id="founders-band-title" class="band__title">
-								{h.foundersBand.title}
-							</h2>
-							<p>{h.foundersBand.text}</p>
-							<a class="btn btn--light" href={pathFor("founders", lang)}>
-								{h.foundersBand.cta}
-								<Icon name="arrow" size={18} />
-							</a>
-						</div>
-					</div>
+	<!-- Founders Club teaser -->
+	<section class="section" aria-labelledby="founders-band-title">
+		<div class="container">
+			<div class="band">
+				<Image src={mascot} alt="" width={150} densities={[1, 1.3]} class="band__mascot" />
+				<div class="band__copy">
+					<p class="eyebrow eyebrow--light">{h.foundersBand.eyebrow}</p>
+					<h2 id="founders-band-title" class="band__title">{h.foundersBand.title}</h2>
+					<p>{h.foundersBand.text}</p>
+					<a class="btn btn--light" href={pathFor("founders", lang)}>
+						{h.foundersBand.cta}
+						<Icon name="arrow" size={18} />
+					</a>
 				</div>
-			</section>
-		)
-	}
+			</div>
+		</div>
+	</section>
 
 	<!-- FAQ -->
-	<section class={`section ${FOUNDERS_ENROLLMENT_OPEN ? "section--soft" : ""}`} aria-labelledby="faq-title">
+	<section class="section section--soft" aria-labelledby="faq-title">
 		<div class="container container--narrow">
 			<header class="section__header">
 				<p class="eyebrow">{h.faq.eyebrow}</p>

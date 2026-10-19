@@ -59,8 +59,6 @@ const he: Dictionary = {
 	badges: {
 		appStore: "הורדה מ-App Store",
 		googlePlay: "הורדה מ-Google Play",
-		googlePlaySoon: "Google Play: בקרוב",
-		comingSoon: "בקרוב",
 	},
 
 	footer: {
@@ -212,8 +210,8 @@ const he: Dictionary = {
 
 	founders: {
 		eyebrow: "מועדון המייסדים",
-		openTitle: "הצטרפו למועדון המייסדים",
-		openLead:
+		title: "הצטרפו למועדון המייסדים",
+		lead:
 			'CAT נבנית יחד עם החברים הראשונים שלה. חברי מועדון המייסדים שמשתפים את CAT עם חברים זכאים לחלק ב-10% מ"הרווח הראוי לחלוקה" שיועד לחלוקה, אם וכאשר החברה תחליט לחלק רווחים.',
 		howTitle: "איך מצטרפים",
 		steps: [
@@ -230,9 +228,6 @@ const he: Dictionary = {
 			"אם תבוצע חלוקה, תישלח אליכם הודעה, ויש להשלים אימות זהות בתוך 30 יום.",
 		],
 		disclaimer: "התנאים המלאים שלהלן מחייבים וגוברים על תקציר זה.",
-		closedTitle: "מועדון המייסדים של CAT",
-		closedNotice: "ההצטרפות למועדון המייסדים סגורה.",
-		closedText: "תנאי התוכנית ממשיכים להופיע כאן.",
 		termsTitle: "תנאי מועדון המייסדים",
 	},
 
