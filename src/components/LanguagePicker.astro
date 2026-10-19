@@ -1,0 +1,58 @@
+---
+import Icon from "./Icon.astro";
+import { languages, pathFor, useTranslations, type Lang, type PageKey } from "../i18n";
+
+// Dropdown of every language in src/i18n/index.ts. Each option links to the
+// same page in that language. Built on <details>, so it works without JS;
+// the script only adds closing on outside click and Escape.
+
+interface Props {
+	lang: Lang;
+	page?: PageKey;
+}
+
+const { lang, page } = Astro.props;
+const t = useTranslations(lang);
+const langCodes = Object.keys(languages) as Lang[];
+---
+
+<details class="lang-picker" data-lang-picker>
+	<summary class="lang-picker__button" aria-label={`${t.a11y.language}: ${languages[lang]}`}>
+		<Icon name="globe" size={18} />
+		<span>{languages[lang]}</span>
+		<Icon name="chevron" size={16} class="lang-picker__chevron" />
+	</summary>
+	<ul class="lang-picker__menu">
+		{
+			langCodes.map((code) => (
+				<li>
+					<a
+						href={pathFor(page ?? "home", code)}
+						lang={code}
+						hreflang={code}
+						aria-current={code === lang ? "true" : undefined}
+					>
+						{languages[code]}
+						{code === lang && <Icon name="check" size={16} />}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</details>
+
+<script>
+	document.querySelectorAll<HTMLDetailsElement>("[data-lang-picker]").forEach((picker) => {
+		document.addEventListener("click", (event) => {
+			if (picker.open && !picker.contains(event.target as Node)) picker.open = false;
+		});
+		picker.addEventListener("keydown", (event) => {
+			if (event.key === "Escape" && picker.open) {
+				// Keep the mobile menu open; only close the picker.
+				event.stopPropagation();
+				picker.open = false;
+				picker.querySelector("summary")?.focus();
+			}
+		});
+	});
+</script>

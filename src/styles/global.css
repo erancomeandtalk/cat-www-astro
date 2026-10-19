@@ -518,19 +518,76 @@ a.store-badge:hover {
 	gap: 0.75rem;
 }
 
-.lang-switch {
-	padding: 0.42rem 0.85rem;
+/* Language picker (LanguagePicker.astro) */
+.lang-picker {
+	position: relative;
+}
+
+.lang-picker__button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.42rem 0.75rem;
 	border: 1px solid var(--c-border);
 	border-radius: 999px;
 	color: var(--c-text);
 	font-size: 0.95rem;
 	font-weight: 600;
+	list-style: none;
+	cursor: pointer;
+	user-select: none;
+}
+
+.lang-picker__button::-webkit-details-marker {
+	display: none;
+}
+
+.lang-picker__button:hover,
+.lang-picker[open] .lang-picker__button {
+	border-color: var(--c-link);
+	color: var(--c-link);
+}
+
+.lang-picker__chevron {
+	transition: transform 0.15s;
+}
+
+.lang-picker[open] .lang-picker__chevron {
+	transform: rotate(180deg);
+}
+
+.lang-picker__menu {
+	position: absolute;
+	top: calc(100% + 0.5rem);
+	inset-inline-end: 0;
+	z-index: 60;
+	min-width: 11rem;
+	padding: 0.4rem;
+	border: 1px solid var(--c-border);
+	border-radius: 14px;
+	background: var(--c-surface);
+	box-shadow: var(--shadow-md);
+}
+
+.lang-picker__menu a {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.55rem 0.75rem;
+	border-radius: 10px;
+	color: var(--c-text);
+	font-weight: 500;
 	text-decoration: none;
 }
 
-.lang-switch:hover {
-	border-color: var(--c-link);
+.lang-picker__menu a:hover {
+	background: var(--c-bg-soft);
+}
+
+.lang-picker__menu a[aria-current="true"] {
 	color: var(--c-link);
+	font-weight: 700;
 }
 
 .menu-toggle {
@@ -581,6 +638,12 @@ a.store-badge:hover {
 
 	.site-nav__actions {
 		justify-content: space-between;
+	}
+
+	/* In the mobile menu the picker sits at the start of the row. */
+	.lang-picker__menu {
+		inset-inline-start: 0;
+		inset-inline-end: auto;
 	}
 }
 

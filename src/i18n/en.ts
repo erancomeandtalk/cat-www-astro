@@ -59,6 +59,7 @@ const en = {
 		footerNav: "Footer",
 		menu: "Menu",
 		homeLink: "CAT home",
+		language: "Language",
 	},
 
 	nav: {
@@ -87,7 +88,7 @@ const en = {
 	home: {
 		hero: {
 			eyebrow: "Connect Around Town",
-			title: "Discover who's around you",
+			title: "Different people, similar needs",
 			subtitle: "Find nearby people who share your interests and want to chat or meet.",
 			note: "Free to download · Adults 18+",
 			imageAlt: "CAT's pink cat looking through a magnifying glass on a colorful city street",

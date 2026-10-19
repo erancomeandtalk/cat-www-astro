@@ -49,7 +49,7 @@ Old URLs `/english`, `/עברית`, `/cat-founders-club` and `/מועדון-המ
 
 ## Adding a language
 
-1. Add a dictionary in `src/i18n/` (typed against `en.ts`) and register it in `src/i18n/index.ts`.
+1. Add a dictionary in `src/i18n/` (typed against `en.ts`) and register it in `src/i18n/index.ts` (`languages`, `ogLocales`, and the RTL list if needed). The language picker lists it automatically.
 2. Add route files under `src/pages/<lang>/` like the Hebrew ones.
 3. Add legal texts under `src/content/legal/<lang>/`, or reuse English.
 4. Add the locale to the sitemap settings in `astro.config.mjs`.

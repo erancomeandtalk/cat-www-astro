@@ -2,7 +2,8 @@
 import { Image } from "astro:assets";
 import icon from "../assets/cat-icon.png";
 import Icon from "./Icon.astro";
-import { languages, otherLang, pathFor, useTranslations, type Lang, type PageKey } from "../i18n";
+import LanguagePicker from "./LanguagePicker.astro";
+import { pathFor, useTranslations, type Lang, type PageKey } from "../i18n";
 
 interface Props {
 	lang: Lang;
@@ -11,9 +12,6 @@ interface Props {
 
 const { lang, page } = Astro.props;
 const t = useTranslations(lang);
-const switchTo = otherLang(lang);
-// The language switch keeps the visitor on the same page.
-const switchHref = pathFor(page ?? "home", switchTo);
 const home = pathFor("home", lang);
 
 const links: { key: PageKey; label: string }[] = [
@@ -52,9 +50,7 @@ const links: { key: PageKey; label: string }[] = [
 				}
 			</ul>
 			<div class="site-nav__actions">
-				<a class="lang-switch" href={switchHref} hreflang={switchTo} lang={switchTo}>
-					{languages[switchTo]}
-				</a>
+				<LanguagePicker lang={lang} page={page} />
 				<a class="btn btn--primary btn--sm" href={`${home}#download`}>{t.nav.download}</a>
 			</div>
 		</nav>

@@ -84,7 +84,7 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
 | 404 | — | — | "Not found" page (real 404 status) with store buttons |
 | ~~Imprint~~ | — | — | **Deferred** by Eran. Listed as a **pre-launch check** (§11), since a German operator falls under §5 DDG. A clearly linked section on Contact may be enough. |
 
-**Header:** logo + "CAT" · Home · Founders Club · Contact · EN/HE switch · "Download" button.
+**Header:** logo + "CAT" · Home · Founders Club · Contact · language picker · "Download" button.
 **Footer:** tagline, store badges, links (Founders Club, Privacy & Terms, Child Safety, Delete Account, Contact), © 2026 LDB Local Developing Britain GmbH.
 
 ### 3.1 Home page
@@ -92,7 +92,7 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
 **Audience (Q-A):** a broad mix: spontaneous local conversation and meetups. Dating is one option, not the headline.
 
 1. **Hero:**
-   - Headline: **"Discover who's around you"**.
+   - Headline (Eran): **"Different people, similar needs"** / **"אנשים שונים עם צרכים דומים"**.
    - Subtitle: **"Find nearby people who share your interests and want to chat or meet."** It says straight away what CAT is.
    - Store badges, with the visitor's platform first.
    - The pink-cat street illustration and/or a phone screenshot.
@@ -193,7 +193,7 @@ When enrollment closes, edit the invitation text by hand and keep the terms on t
 
 - **English is the default, at the root** (`/`). **Hebrew at `/he/`**, full RTL.
 - More languages later: one translation file each, plus the English legal text with a note.
-- No automatic language redirect. The language switcher keeps you on the same page (`/founders-club` ↔ `/he/founders-club`).
+- No automatic language redirect. The language picker (a dropdown, ready for more languages) keeps you on the same page (`/founders-club` ↔ `/he/founders-club`).
 - RTL is done properly: `dir="rtl"`, direction-aware spacing, arrows that flip. Mixed Hebrew/English text (CAT, store names, emails) is wrapped so it reads correctly.
 
 ---
@@ -202,7 +202,7 @@ When enrollment closes, edit the invitation text by hand and keep the terms on t
 
 | # | Feature | Decision |
 |---|---|---|
-| 1 | Language switcher (EN/HE) | ✅ Keeps the current page |
+| 1 | Language picker | ✅ Dropdown listing every language, each named in its own language. Keeps the current page. |
 | 2 | Dark mode | ✅ Follows the device setting, no toggle |
 | 3 | **Measurement** | ✅ **Cloudflare Web Analytics** for traffic (it can't count button clicks). ✅ **App Store:** plain links; App Store Connect's Web Referrer report shows website downloads by domain. ✅ **Google Play:** links carry `&referrer=utm_source%3Dcome-and-talk.com%26utm_medium%3Dwebsite`. |
 | 4 | SEO (meta, Open Graph, canonical, hreflang) | ✅ |
@@ -353,7 +353,7 @@ No open questions remain.
 ## 12. Acceptance checklist (for Eran's testing on the preview)
 
 - [ ] Every page renders in EN and HE. Hebrew is RTL, and mixed Hebrew/English text reads correctly.
-- [ ] The language switcher keeps the current page in both directions.
+- [ ] The language picker keeps the current page, and closes with Escape or a click outside.
 - [ ] Legacy redirects return **301** to the right page:
   - `/english`, `/cat-founders-club`, `/עברית`, `/מועדון-המייסדים`
   - with and without a trailing slash

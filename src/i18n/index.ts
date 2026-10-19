@@ -36,7 +36,3 @@ export function pathFor(page: PageKey, lang: Lang): string {
 	if (lang === defaultLang) return path;
 	return path === "/" ? `/${lang}` : `/${lang}${path}`;
 }
-
-export function otherLang(lang: Lang): Lang {
-	return lang === "en" ? "he" : "en";
-}

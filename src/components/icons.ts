@@ -19,6 +19,9 @@ export const icons = {
 	mail: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/>',
 	arrow: '<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>',
 	menu: '<path d="M3 6h18M3 12h18M3 18h18"/>',
+	globe:
+		'<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+	chevron: '<path d="M6 9l6 6 6-6"/>',
 	check: '<path d="M20 6L9 17l-5-5"/>',
 	phone: '<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
 } as const;
