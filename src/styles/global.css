@@ -134,8 +134,9 @@ a:hover {
 	text-decoration-thickness: 2px;
 }
 
-ul[class],
-ol[class] {
+/* :where() keeps this reset at zero specificity, so component classes
+   (.screens, .numbered, .checklist) can set their own margin and padding. */
+:where(ul[class], ol[class]) {
 	list-style: none;
 	margin: 0;
 	padding: 0;

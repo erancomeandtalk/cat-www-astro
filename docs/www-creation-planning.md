@@ -121,7 +121,11 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
 
 ### 3.2 Founders Club page
 
-When enrollment closes, edit the invitation text by hand and keep the terms on the page. There's no switch for this (Eran's decision, §13).
+When enrollment closes, edit the invitation text by hand and keep the terms on the page. There's no switch for this (Eran's decision, §13). Change the recruitment copy in **both** `en.ts` and `he.ts`:
+- `founders`: title, lead, steps, and the Founders Club page's StoreBadges/steps card;
+- `home.foundersBand`, which you might remove instead;
+- the FAQ answer "What is the Founders Club?" ("See how to join…");
+- `meta.founders.description` ("…join the Founders Club").
 
 **Draft copy:**
 
@@ -248,7 +252,9 @@ Today `www.come-and-talk.com` is a CNAME to `ghs.googlehosted.com` (Google Sites
 6. **Rollback** if needed:
    1. Remove the Custom Domain.
    2. Re-create `www CNAME ghs.googlehosted.com`. Keep the Google Site published until the new site is confirmed.
-7. **After launch:** update the store privacy and deletion URLs. Optionally turn off the `workers.dev` route.
+7. **After launch:**
+   1. Once `www.come-and-talk.com` serves the site, **turn off the `workers.dev` route** (Workers → the worker → Settings → Domains & Routes → workers.dev → Disable). Otherwise the preview address keeps serving copies of every page. They point to www as canonical, but it's cleaner to remove them.
+   2. Update the store privacy and deletion URLs.
 
 ### 7.2 Planned structure
 
