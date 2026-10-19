@@ -1,0 +1,276 @@
+---
+import { Image } from "astro:assets";
+import MainLayout from "../layouts/MainLayout.astro";
+import StoreBadges from "../components/StoreBadges.astro";
+import Icon from "../components/Icon.astro";
+import type { IconName } from "../components/icons";
+import splash from "../assets/splash.png";
+import mascot from "../assets/mascot.png";
+import catIcon from "../assets/cat-icon.png";
+import shotDiscover from "../assets/screenshots/discover.png";
+import shotMap from "../assets/screenshots/map.png";
+import shotNearby from "../assets/screenshots/nearby.png";
+import {
+	APP_NAME,
+	APP_STORE_URL,
+	COMPANY_NAME,
+	FOUNDERS_ENROLLMENT_OPEN,
+	PLAY_STORE_LIVE,
+	PLAY_STORE_URL,
+	SITE_URL,
+	SUPPORT_EMAIL,
+} from "../config";
+import { pathFor, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const h = t.home;
+
+// Icons follow the order of the feature and safety lists in the dictionaries.
+const featureIcons: IconName[] = ["pin", "heart", "coffee", "radar", "chat", "toggle"];
+const safetyIcons: IconName[] = ["shield", "flag", "ban", "trash"];
+const screenshots = [shotDiscover, shotMap, shotNearby];
+
+const organizationId = `${SITE_URL}/#organization`;
+const structuredData = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "Organization",
+			"@id": organizationId,
+			name: COMPANY_NAME,
+			url: SITE_URL,
+			logo: `${SITE_URL}/icon-512.png`,
+			email: SUPPORT_EMAIL,
+		},
+		{
+			"@type": "WebSite",
+			name: APP_NAME,
+			url: SITE_URL,
+			inLanguage: lang,
+			publisher: { "@id": organizationId },
+		},
+		{
+			"@type": "MobileApplication",
+			name: APP_NAME,
+			description: t.meta.home.description,
+			applicationCategory: "LifestyleApplication",
+			operatingSystem: PLAY_STORE_LIVE ? "iOS, Android" : "iOS",
+			image: `${SITE_URL}/icon-512.png`,
+			downloadUrl: PLAY_STORE_LIVE ? [APP_STORE_URL, PLAY_STORE_URL] : [APP_STORE_URL],
+			offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+			publisher: { "@id": organizationId },
+		},
+	],
+};
+---
+
+<MainLayout lang={lang} page="home" title={t.meta.home.title} description={t.meta.home.description}>
+	<!-- Hero -->
+	<section class="hero">
+		<div class="container hero__grid">
+			<div class="hero__copy">
+				<p class="eyebrow">{h.hero.eyebrow}</p>
+				<h1 class="hero__title">{h.hero.title}</h1>
+				<p class="hero__subtitle">{h.hero.subtitle}</p>
+				<StoreBadges lang={lang} id="download" />
+				<p class="hero__note">{h.hero.note}</p>
+			</div>
+			<div class="hero__visual">
+				<div class="hero__art">
+					<Image
+						src={splash}
+						alt={h.hero.imageAlt}
+						widths={[360, 540, 720, 900]}
+						sizes="(min-width: 960px) 400px, (min-width: 600px) 55vw, 80vw"
+						loading="eager"
+						fetchpriority="high"
+						class="hero__img"
+					/>
+					<span class="chip chip--online" aria-hidden="true"><span class="chip__dot"></span>{h.hero.chipOnline}</span>
+					<span class="chip chip--match" aria-hidden="true"><Icon name="heart" size={16} />{h.hero.chipMatch}</span>
+					<span class="chip chip--broadcast" aria-hidden="true"><Icon name="radar" size={16} />{h.hero.chipBroadcast}</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- How it works -->
+	<section class="section" aria-labelledby="how-title">
+		<div class="container">
+			<header class="section__header">
+				<p class="eyebrow">{h.how.eyebrow}</p>
+				<h2 id="how-title" class="section__title">{h.how.title}</h2>
+			</header>
+			<ol class="steps">
+				{
+					h.how.steps.map((step, i) => (
+						<li class="card step">
+							<span class="step__num" aria-hidden="true">
+								{i + 1}
+							</span>
+							<h3 class="card__title">{step.title}</h3>
+							<p>{step.text}</p>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<!-- Features -->
+	<section class="section section--soft" aria-labelledby="features-title">
+		<div class="container">
+			<header class="section__header">
+				<p class="eyebrow">{h.features.eyebrow}</p>
+				<h2 id="features-title" class="section__title">{h.features.title}</h2>
+			</header>
+			<ul class="feature-grid">
+				{
+					h.features.items.map((feature, i) => (
+						<li class="card feature">
+							<span class={`feature__icon feature__icon--${i % 3}`}>
+								<Icon name={featureIcons[i] ?? "check"} />
+							</span>
+							<h3 class="card__title">{feature.title}</h3>
+							<p>{feature.text}</p>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Screenshots -->
+	<section class="section" aria-labelledby="screens-title">
+		<div class="container">
+			<header class="section__header">
+				<p class="eyebrow">{h.screens.eyebrow}</p>
+				<h2 id="screens-title" class="section__title">{h.screens.title}</h2>
+			</header>
+			<ul class="screens">
+				{
+					screenshots.map((shot, i) => (
+						<li class="screens__item">
+							<figure>
+								<Image
+									src={shot}
+									alt={h.screens.items[i]?.alt ?? ""}
+									widths={[260, 520]}
+									sizes="260px"
+									loading="lazy"
+									class="screens__img"
+								/>
+								<figcaption>{h.screens.items[i]?.caption}</figcaption>
+							</figure>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Safety -->
+	<section class="section section--soft" aria-labelledby="safety-title">
+		<div class="container safety">
+			<div class="safety__intro">
+				<p class="eyebrow">{h.safety.eyebrow}</p>
+				<h2 id="safety-title" class="section__title section__title--start">{h.safety.title}</h2>
+				<p class="lead">{h.safety.text}</p>
+				<p class="link-row">
+					<a class="text-link" href={pathFor("childSafety", lang)}>
+						{h.safety.childSafetyLink}
+						<Icon name="arrow" size={16} />
+					</a>
+					<a class="text-link" href={pathFor("deleteAccount", lang)}>
+						{h.safety.deleteLink}
+						<Icon name="arrow" size={16} />
+					</a>
+				</p>
+			</div>
+			<ul class="safety__points">
+				{
+					h.safety.points.map((point, i) => (
+						<li class="card safety-point">
+							<span class="safety-point__icon">
+								<Icon name={safetyIcons[i] ?? "check"} size={22} />
+							</span>
+							<div>
+								<h3 class="card__title">{point.title}</h3>
+								<p>{point.text}</p>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<!-- Founders Club teaser (only while enrollment is open) -->
+	{
+		FOUNDERS_ENROLLMENT_OPEN && (
+			<section class="section" aria-labelledby="founders-band-title">
+				<div class="container">
+					<div class="band">
+						<Image src={mascot} alt="" width={150} densities={[1, 1.3]} class="band__mascot" />
+						<div class="band__copy">
+							<p class="eyebrow eyebrow--light">{h.foundersBand.eyebrow}</p>
+							<h2 id="founders-band-title" class="band__title">
+								{h.foundersBand.title}
+							</h2>
+							<p>{h.foundersBand.text}</p>
+							<a class="btn btn--light" href={pathFor("founders", lang)}>
+								{h.foundersBand.cta}
+								<Icon name="arrow" size={18} />
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		)
+	}
+
+	<!-- FAQ -->
+	<section class={`section ${FOUNDERS_ENROLLMENT_OPEN ? "section--soft" : ""}`} aria-labelledby="faq-title">
+		<div class="container container--narrow">
+			<header class="section__header">
+				<p class="eyebrow">{h.faq.eyebrow}</p>
+				<h2 id="faq-title" class="section__title">{h.faq.title}</h2>
+			</header>
+			<div class="faq">
+				{
+					h.faq.items.map((item) => (
+						<details class="faq__item">
+							<summary class="faq__q">{item.q}</summary>
+							<div class="faq__a">
+								<p>{item.a}</p>
+								{item.link && (
+									<a class="text-link" href={pathFor(item.link.page, lang)}>
+										{item.link.label}
+										<Icon name="arrow" size={16} />
+									</a>
+								)}
+							</div>
+						</details>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Final call to action -->
+	<section class="section cta" aria-labelledby="cta-title">
+		<div class="container cta__inner">
+			<Image src={catIcon} alt="" width={88} height={88} densities={[1, 2]} class="cta__icon" />
+			<h2 id="cta-title" class="section__title">{h.cta.title}</h2>
+			<p class="lead">{h.cta.text}</p>
+			<StoreBadges lang={lang} center />
+		</div>
+	</section>
+
+	<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+</MainLayout>

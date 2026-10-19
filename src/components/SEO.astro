@@ -1,0 +1,77 @@
+---
+import { ALLOW_INDEXING, CF_ANALYTICS_TOKEN, SITE_URL } from "../config";
+import { languages, ogLocales, otherLang, pathFor, type Lang, type PageKey } from "../i18n";
+
+interface Props {
+	lang: Lang;
+	// The page key drives canonical and hreflang URLs. Omit it for pages that
+	// exist in one version only (404).
+	page?: PageKey;
+	title: string;
+	description: string;
+	noindex?: boolean;
+}
+
+const { lang, page, title, description, noindex = false } = Astro.props;
+
+const absolute = (path: string) => new URL(path, SITE_URL).href;
+const canonical = page ? absolute(pathFor(page, lang)) : undefined;
+const robots = ALLOW_INDEXING && !noindex ? "index, follow" : "noindex, nofollow";
+const ogImage = absolute("/og-image.jpg");
+const langCodes = Object.keys(languages) as Lang[];
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={robots} />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0c111c" media="(prefers-color-scheme: dark)" />
+
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+{canonical && <link rel="canonical" href={canonical} />}
+{page && langCodes.map((code) => <link rel="alternate" hreflang={code} href={absolute(pathFor(page, code))} />)}
+{page && <link rel="alternate" hreflang="x-default" href={absolute(pathFor(page, "en"))} />}
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="CAT - Come And Talk" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+{canonical && <meta property="og:url" content={canonical} />}
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={ogLocales[lang]} />
+<meta property="og:locale:alternate" content={ogLocales[otherLang(lang)]} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<script is:inline>
+	// Platform hint for store-badge ordering, and a "js" flag for the mobile menu.
+	(function () {
+		var ua = navigator.userAgent || "";
+		var ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+		var root = document.documentElement;
+		root.setAttribute("data-platform", /android/i.test(ua) ? "android" : ios ? "ios" : "other");
+		root.classList.add("js");
+	})();
+</script>
+
+{
+	CF_ANALYTICS_TOKEN && (
+		<script
+			is:inline
+			defer
+			src="https://static.cloudflareinsights.com/beacon.min.js"
+			data-cf-beacon={JSON.stringify({ token: CF_ANALYTICS_TOKEN })}
+		></script>
+	)
+}

@@ -1,0 +1,67 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Icon from "../components/Icon.astro";
+import { SUPPORT_EMAIL } from "../config";
+import { pathFor, useTranslations, type Lang } from "../i18n";
+
+// Google Play's "Delete account URL": deletion in the app, or by email request.
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const d = t.deleteAccount;
+const mailto = `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(d.emailSubject)}`;
+---
+
+<MainLayout lang={lang} page="deleteAccount" title={t.meta.deleteAccount.title} description={t.meta.deleteAccount.description}>
+	<section class="page-hero page-hero--plain">
+		<div class="container container--narrow">
+			<p class="eyebrow">{d.eyebrow}</p>
+			<h1 class="page-title">{d.title}</h1>
+			<p class="lead">{d.lead}</p>
+		</div>
+	</section>
+
+	<section class="section section--tight">
+		<div class="container container--narrow stack">
+			<div class="card">
+				<span class="card__icon"><Icon name="phone" /></span>
+				<h2 class="card__heading">{d.inAppTitle}</h2>
+				<ol class="numbered">
+					{
+						d.inAppSteps.map((step) => (
+							<li>
+								<Fragment set:html={step} />
+							</li>
+						))
+					}
+				</ol>
+			</div>
+
+			<div class="card">
+				<span class="card__icon"><Icon name="mail" /></span>
+				<h2 class="card__heading">{d.emailTitle}</h2>
+				<p>{d.emailText}</p>
+				<p class="email-line">
+					<a class="ltr-text" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+				</p>
+				<a class="btn btn--primary" href={mailto}>
+					<Icon name="mail" size={18} />
+					{d.emailButton}
+				</a>
+			</div>
+
+			<div class="card card--soft">
+				<h2 class="card__heading">{d.dataTitle}</h2>
+				<p>{d.dataText}</p>
+				<a class="text-link" href={`${pathFor("privacy", lang)}#privacy`}>
+					{d.privacyLink}
+					<Icon name="arrow" size={16} />
+				</a>
+			</div>
+		</div>
+	</section>
+</MainLayout>

@@ -1,0 +1,77 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { useTranslations, type Lang } from "../i18n";
+import { loadLegal } from "../lib/legal";
+
+// The full legal page, in the same order as the old Google Sites page:
+// Terms of Use (EULA), Privacy Policy, Child Safety, Founders Club addendum.
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const [terms, privacy, childSafety, founders] = await Promise.all([
+	loadLegal(lang, "terms"),
+	loadLegal(lang, "privacy"),
+	loadLegal(lang, "child-safety"),
+	loadLegal(lang, "founders-club"),
+]);
+
+const TermsContent = terms.Content;
+const PrivacyContent = privacy.Content;
+const ChildSafetyContent = childSafety.Content;
+const FoundersContent = founders.Content;
+
+const contents = [
+	{ id: "terms", label: terms.data.title },
+	{ id: "privacy", label: t.legal.privacySection },
+	{ id: "child-safety", label: childSafety.data.title },
+	{ id: "founders-club-terms", label: founders.data.addendumTitle ?? founders.data.title },
+];
+---
+
+<MainLayout lang={lang} page="privacy" title={t.meta.privacy.title} description={t.meta.privacy.description}>
+	<article class="section legal">
+		<div class="container container--narrow">
+			<header class="legal__header">
+				{privacy.data.operator && <p class="eyebrow ltr-text">{privacy.data.operator}</p>}
+				<h1 class="page-title">{privacy.data.title}</h1>
+			</header>
+
+			<nav class="toc" aria-labelledby="toc-title">
+				<h2 id="toc-title" class="toc__title">{t.legal.onThisPage}</h2>
+				<ol>
+					{
+						contents.map((item) => (
+							<li>
+								<a href={`#${item.id}`}>{item.label}</a>
+							</li>
+						))
+					}
+				</ol>
+			</nav>
+
+			<section id="terms" class="prose legal__section">
+				<h2>{terms.data.title}</h2>
+				<TermsContent />
+			</section>
+
+			<section id="privacy" class="prose legal__section" aria-label={t.legal.privacySection}>
+				<PrivacyContent />
+			</section>
+
+			<section id="child-safety" class="prose legal__section">
+				<h2>{childSafety.data.title}</h2>
+				<ChildSafetyContent />
+			</section>
+
+			<section id="founders-club-terms" class="prose legal__section">
+				<h2>{founders.data.addendumTitle ?? founders.data.title}</h2>
+				<FoundersContent />
+			</section>
+		</div>
+	</article>
+</MainLayout>

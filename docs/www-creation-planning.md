@@ -1,6 +1,6 @@
 # come-and-talk.com: Website Creation Plan
 
-**Status:** Rev 3, includes Codex's review · 2026-10-19
+**Status:** Rev 3, includes Codex's review · 2026-10-19 · **Built** (uncommitted), waiting for Eran's install, build and test (§13)
 **Stack:** Astro 5 on Cloudflare Workers (the template already in this repo)
 **Reference project:** MyGroupOnline website (`../Temp/my-group-online-www-astro-main`), used **only** for its general template and site structure. No copy is taken from it.
 
@@ -235,7 +235,7 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
   - store URLs and campaign parameters;
   - support email and company name;
   - the switches `PLAY_STORE_LIVE`, `FOUNDERS_ENROLLMENT_OPEN` and `ALLOW_INDEXING`.
-- **Official store badges** (EN + HE), downloaded into `public/` (approved by Eran).
+- **Official store badges**, downloaded into `public/badges/` (approved by Eran). English badges on both languages: Apple's Hebrew badge couldn't be downloaded from here, and a mixed pair looked inconsistent.
 - **Redirects:** the template's `.assetsignore` excludes `_redirects`, so the 301s are small on-demand routes inside the Worker.
 - **URLs without a trailing slash** (`build.format: "file"`). Check how the trailing-slash variants behave on the preview (§12).
 
@@ -367,3 +367,32 @@ No open questions remain.
 - [ ] Contrast is readable in light and dark themes.
 - [ ] Mobile at 360px wide: no horizontal scrolling.
 - [ ] Legal texts match the old site word for word (except "klub" → "club").
+- [ ] Hebrew legal page doesn't include the old site's internal "דגשים חשובים עבורך כבעל האפליקציה" note (§13).
+
+---
+
+## 13. Implementation notes (2026-10-19)
+
+**Built:** everything in §3 and §6, in both languages, as uncommitted changes. Claude ran no install, build, test or deploy.
+
+**First run (Eran):**
+```bash
+nvm use            # Node 22 from .nvmrc
+npm install        # no dependency changes, so the lockfile stays as is
+npm run dev        # http://localhost:4321 and http://localhost:4321/he
+npm run build      # then push to deploy the preview
+```
+Expect a few errors on the first build, since the code was never compiled. Send the output and Claude will fix them.
+
+**Differences from the old site's legal text (all deliberate):**
+- **"klub" → "club"** (agreed).
+- **Hebrew internal note removed.** The live Hebrew page includes a block headed "דגשים חשובים עבורך כבעל האפליקציה". It was setup advice for the app owner (the App Store privacy section, a Delete Account button), published by mistake.
+- **Hebrew Founders Club numbering.** On the live page, the number "1" sat on its own line under "הגדרות". The numbers now sit on the section headings, matching the English text. No wording changed.
+- Formatting only: section headings, bullet lists and bold labels made consistent between EN and HE. Quote marks are left exactly as written (Markdown "smart quotes" is off).
+- Word-for-word comparison script results: EN differs only by "klub"; HE differs only by the removed note and the numbering.
+
+**Things to know:**
+- **Redirects** for the four old URLs are on-demand routes (`src/pages/english.ts` and the others). Two of them have Hebrew file names, which is how Astro matches `/עברית`. Check them on the preview (§12).
+- **Images:** the app artwork was copied into `src/assets/`. Favicons and the social share image (a crop of the splash illustration) were made with macOS `sips`. Astro optimizes the images at build time using `sharp`, which is already in the lockfile.
+- **Analytics:** `CF_ANALYTICS_TOKEN` is empty. Either paste the Web Analytics token, or turn on automatic setup for the domain in the Cloudflare dashboard after launch.
+- **App links:** the app's settings screen also opens the site root for "Privacy Policy" and "Terms of Service" (`settings_screen.dart:403–413`), in addition to the sign-in screen (§4).

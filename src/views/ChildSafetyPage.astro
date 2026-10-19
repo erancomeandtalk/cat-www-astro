@@ -1,0 +1,46 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Icon from "../components/Icon.astro";
+import { pathFor, useTranslations, type Lang } from "../i18n";
+import { loadLegal } from "../lib/legal";
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const { data, Content } = await loadLegal(lang, "child-safety");
+---
+
+<MainLayout lang={lang} page="childSafety" title={t.meta.childSafety.title} description={t.meta.childSafety.description}>
+	<article class="section legal">
+		<div class="container container--narrow">
+			<header class="legal__header">
+				<p class="eyebrow ltr-text">CAT - Come And Talk</p>
+				<h1 class="page-title">{data.title}</h1>
+			</header>
+			<div class="prose">
+				<Content />
+			</div>
+
+			<aside class="related" aria-labelledby="related-title">
+				<h2 id="related-title" class="related__title">{t.legal.relatedTitle}</h2>
+				<ul>
+					<li>
+						<a class="text-link" href={`${pathFor("privacy", lang)}#child-safety`}>
+							{t.nav.privacy}
+							<Icon name="arrow" size={16} />
+						</a>
+					</li>
+					<li>
+						<a class="text-link" href={pathFor("contact", lang)}>
+							{t.nav.contact}
+							<Icon name="arrow" size={16} />
+						</a>
+					</li>
+				</ul>
+			</aside>
+		</div>
+	</article>
+</MainLayout>

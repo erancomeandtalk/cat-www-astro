@@ -1,0 +1,62 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Icon from "../components/Icon.astro";
+import { COMPANY_NAME, SUPPORT_EMAIL } from "../config";
+import { pathFor, useTranslations, type Lang } from "../i18n";
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const c = t.contact;
+---
+
+<MainLayout lang={lang} page="contact" title={t.meta.contact.title} description={t.meta.contact.description}>
+	<section class="page-hero page-hero--plain">
+		<div class="container container--narrow">
+			<p class="eyebrow">{c.eyebrow}</p>
+			<h1 class="page-title">{c.title}</h1>
+			<p class="lead">{c.lead}</p>
+		</div>
+	</section>
+
+	<section class="section section--tight">
+		<div class="container container--narrow stack">
+			<div class="card card--feature">
+				<span class="card__icon"><Icon name="mail" /></span>
+				<h2 class="card__heading">{c.emailTitle}</h2>
+				<p>{c.emailText}</p>
+				<p class="email-line email-line--big">
+					<a class="ltr-text" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+				</p>
+			</div>
+
+			<div class="two-col">
+				<div class="card">
+					<span class="card__icon"><Icon name="flag" /></span>
+					<h2 class="card__heading">{c.reportTitle}</h2>
+					<p>{c.reportText}</p>
+					<a class="text-link" href={pathFor("childSafety", lang)}>
+						{t.nav.childSafety}
+						<Icon name="arrow" size={16} />
+					</a>
+				</div>
+				<div class="card">
+					<span class="card__icon"><Icon name="trash" /></span>
+					<h2 class="card__heading">{c.deleteTitle}</h2>
+					<p>{c.deleteText}</p>
+					<a class="text-link" href={pathFor("deleteAccount", lang)}>
+						{c.deleteLink}
+						<Icon name="arrow" size={16} />
+					</a>
+				</div>
+			</div>
+
+			<p class="fine-print">
+				{c.company} <span class="ltr-text">{COMPANY_NAME}</span>.
+			</p>
+		</div>
+	</section>
+</MainLayout>

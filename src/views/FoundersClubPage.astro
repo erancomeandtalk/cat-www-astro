@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+import MainLayout from "../layouts/MainLayout.astro";
+import StoreBadges from "../components/StoreBadges.astro";
+import Icon from "../components/Icon.astro";
+import mascot from "../assets/mascot.png";
+import { FOUNDERS_ENROLLMENT_OPEN } from "../config";
+import { useTranslations, type Lang } from "../i18n";
+import { loadLegal } from "../lib/legal";
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const f = t.founders;
+const open = FOUNDERS_ENROLLMENT_OPEN;
+const { Content: Terms } = await loadLegal(lang, "founders-club");
+---
+
+<MainLayout lang={lang} page="founders" title={t.meta.founders.title} description={t.meta.founders.description}>
+	<section class="page-hero">
+		<div class="container page-hero__grid">
+			<div>
+				<p class="eyebrow">{f.eyebrow}</p>
+				<h1 class="page-title">{open ? f.openTitle : f.closedTitle}</h1>
+				{open && <p class="lead">{f.openLead}</p>}
+				{
+					!open && (
+						<p class="notice" role="status">
+							<Icon name="info" size={22} />
+							<span>
+								<strong>{f.closedNotice}</strong> {f.closedText}
+							</span>
+						</p>
+					)
+				}
+			</div>
+			<Image src={mascot} alt="" width={195} height={240} class="page-hero__mascot" loading="eager" />
+		</div>
+	</section>
+
+	{
+		open && (
+			<section class="section section--tight">
+				<div class="container two-col">
+					<div class="card">
+						<h2 class="card__heading">{f.howTitle}</h2>
+						<ol class="numbered">
+							{f.steps.map((step) => (
+								<li>
+									<Fragment set:html={step} />
+								</li>
+							))}
+						</ol>
+						<StoreBadges lang={lang} size="md" />
+					</div>
+					<div class="card card--soft">
+						<h2 class="card__heading">{f.goodToKnowTitle}</h2>
+						<ul class="checklist">
+							{f.goodToKnow.map((item) => (
+								<li>
+									<Icon name="check" size={18} />
+									<span>{item}</span>
+								</li>
+							))}
+						</ul>
+						<p class="fine-print">{f.disclaimer}</p>
+					</div>
+				</div>
+			</section>
+		)
+	}
+
+	<section class="section section--soft" id="terms" aria-labelledby="terms-title">
+		<div class="container container--narrow">
+			<h2 id="terms-title" class="section__title section__title--start">{f.termsTitle}</h2>
+			<div class="prose">
+				<Terms />
+			</div>
+		</div>
+	</section>
+</MainLayout>
