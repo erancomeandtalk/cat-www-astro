@@ -53,4 +53,4 @@ operator: "LDB - Local Developing Britain GmbH"
 
 אנו שומרים לעצמנו את הזכות לעדכן מסמך זה בכל עת. המשך השימוש באפליקציה לאחר עדכון המדיניות מהווה הסכמה לתנאים החדשים.
 
-לשירות הלקוחות ניתן ליצור קשר באמצעות כתובת הדוא"ל: **[cat.service.app@gmail.com](mailto:cat.service.app@gmail.com)**
+לשירות הלקוחות ניתן ליצור קשר באמצעות כתובת הדוא"ל: **[support@come-and-talk.com](mailto:support@come-and-talk.com)**

@@ -60,4 +60,4 @@ Any payment, benefit, or profit distribution to club members shall be subject to
 - **Transfer of Ownership and Exemption from Notice Requirement:** The Company reserves the full right, at its sole discretion, to sell, transfer, assign, restructure, or license the App, its operations, intellectual property, and the rights and obligations under this appendix to any corporation, other company, or third party at any time.
 - The Company bears no obligation of reporting, prior notice, or subsequent notice to users regarding any such change, cessation of activity, assignment, or transfer of ownership. All terms, limitations, and protections detailed in this appendix shall automatically apply for the benefit of the successor/new corporation, without requiring approval or consent from the users.
 
-For customer service, you can contact us via email at: **[cat.service.app@gmail.com](mailto:cat.service.app@gmail.com)**
+For customer service, you can contact us via email at: **[support@come-and-talk.com](mailto:support@come-and-talk.com)**

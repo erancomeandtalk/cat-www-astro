@@ -160,7 +160,7 @@ When enrollment closes, edit the invitation text by hand and keep the terms on t
 
 - **In the app:** Profile → Settings → **Delete Account**.
 - **Without the app (by email):**
-  - Send a request to cat.service.app@gmail.com with the subject "Account deletion request".
+  - Send a request to support@come-and-talk.com with the subject "Account deletion request".
   - Include your **Profile ID** (copyable in the app's settings) or the email of the Apple/Google account you sign in with.
   - We'll confirm when it's done.
 - **What is deleted:** generic wording that matches the privacy policy (Eran's decision, Q-D):
@@ -314,7 +314,7 @@ public/
 | Q7 | Imprint | Later; pre-launch check |
 | Q10 | Domain | Eran does the DNS switchover (§7.1) |
 | Q11 | Features | Answered, plus verified in code (§2.1) |
-| — | Contact email | `cat.service.app@gmail.com` |
+| — | Contact email | `support@come-and-talk.com` |
 | — | Dark mode | Follows the device |
 | — | Legal typo "klub" | Fixed; otherwise word for word |
 | — | Social links / rating badge | None for now |

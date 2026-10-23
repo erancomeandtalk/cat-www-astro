@@ -53,4 +53,4 @@ The App is not intended for minors under the age of 18. If we become aware that 
 
 We reserve the right to update this document at any time. Continued use of the App following a policy update constitutes your agreement to the new terms.
 
-For customer support, please contact us at: **[cat.service.app@gmail.com](mailto:cat.service.app@gmail.com)**
+For customer support, please contact us at: **[support@come-and-talk.com](mailto:support@come-and-talk.com)**

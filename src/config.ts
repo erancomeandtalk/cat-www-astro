@@ -4,7 +4,7 @@ export const SITE_URL = "https://www.come-and-talk.com";
 
 export const APP_NAME = "CAT - Come And Talk";
 export const COMPANY_NAME = "LDB Local Developing Britain GmbH";
-export const SUPPORT_EMAIL = "cat.service.app@gmail.com";
+export const SUPPORT_EMAIL = "support@come-and-talk.com";
 
 export const APP_STORE_URL = "https://apps.apple.com/app/cat-come-and-talk/id6761020027";
 
