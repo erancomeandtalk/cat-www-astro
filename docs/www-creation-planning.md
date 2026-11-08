@@ -141,7 +141,7 @@ When enrollment closes, edit the invitation text by hand and keep the terms on t
 > **Good to know**
 > - Any distribution is split equally among verified members. There is no guaranteed or minimum amount.
 > - Membership is a contractual benefit only. It is not shares, equity or voting rights.
-> - Approved members can take part in the benefit until **1 January 2027** (the company may extend this date). Enrollment itself may close earlier, at any time.
+> - Approved members can take part in the benefit until **1 January 2029** (the company may extend this date). Enrollment itself may close earlier, at any time.
 > - If a distribution is made, you'll be notified and must complete identity verification within 30 days.
 >
 > *The full terms below are binding and take precedence over this summary.*
