@@ -14,7 +14,7 @@ const de: Dictionary = {
 		},
 		founders: {
 			title: "Gründerclub | CAT - Come And Talk",
-			description: "Teile CAT mit Freunden und tritt dem Gründerclub bei. So machst du mit – mit den vollständigen Programmbedingungen.",
+			description: "Teile CAT mit Freunden und tritt dem Gründerclub bei. Erfahre, wie du teilnimmst, und lies die vollständigen Programmbedingungen.",
 		},
 		privacy: {
 			title: "Datenschutz & Nutzungsbedingungen | CAT - Come And Talk",

@@ -11,6 +11,6 @@ Astro 5 site on Cloudflare Workers for the CAT (Come And Talk) app. The plan and
 
 ## Content rules
 
-- Feature copy must match the app. Source of truth: `../App/cat/lib/l10n/app_en.arb` and `app_he.arb`.
+- Feature copy must match the app. Source of truth: `../App/cat/lib/l10n/app_<lang>.arb` (`app_en.arb`, `app_he.arb`, and `app_de.arb` for the current site languages).
 - Legal texts (privacy/terms, child safety, Founders Club terms) are copied word for word from the old site. Don't edit them.
 - No "anonymous" or "no location tracking" claims. Location is visible to nearby users while the user is Online.

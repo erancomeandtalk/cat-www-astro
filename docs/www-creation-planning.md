@@ -17,7 +17,7 @@
 
 ## 1. Goal
 
-A simple, fast, bilingual (EN/HE) marketing site for **CAT (Come And Talk)**. It has three jobs:
+A simple, fast, multilingual (EN/HE/DE) marketing site for **CAT (Come And Talk)**. It has three jobs:
 
 1. **Get downloads.** The App Store and Google Play buttons are the main call to action on every page.
 2. **Host the pages the app stores and the app point to:**
@@ -40,7 +40,7 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
 
 | Source | What it gives us |
 |---|---|
-| **CAT Flutter app** (`../App/cat`, v4.0.6) | **The source for features and wording.** English and Hebrew UI strings, Founders Club flow, share links, brand artwork. |
+| **CAT Flutter app** (`../App/cat`, v4.0.6) | **The source for features and wording.** English, Hebrew and German UI strings (`app_en.arb`, `app_he.arb`, `app_de.arb`), Founders Club flow, share links, brand artwork. |
 | **Backend source** (`../App/Planning/.../functions/src/index.ts`, Swift-era copy) | Confirms the server behaviour behind safety claims (for example, automatic suspension after repeated reports). |
 | **App Store listing** | Name, subtitle **"Connect Around Town"**, seller **LDB Local Developing Britain GmbH**, free, 18+, screenshots. Public version **2.7** (Swift). Store URL: `https://apps.apple.com/app/cat-come-and-talk/id6761020027`. |
 | **Google Play** | Not published yet. URL: `https://play.google.com/store/apps/details?id=com.comeandtalk.app`. |
@@ -67,22 +67,25 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
 > **Copy rules**
 > - Every feature claim matches the app.
 > - The Hebrew site reuses the app's own Hebrew terms ("שדר לסביבה", "זמין/כבוי", "התאמה").
+> - The German site reuses the app's German terms ("An die Umgebung senden", "Verfügbar/Aus", "Match-Wert").
 > - No "anonymous" or "no location tracking" claims. Your location is visible to nearby users while you're Online.
 
 ---
 
 ## 3. Site map
 
-| Page | English URL | Hebrew URL | Content |
-|---|---|---|---|
-| Home | `/` | `/he/` | Marketing and download page. Also the landing page for links shared from the app. |
-| Founders Club | `/founders-club` | `/he/founders-club` | Explainer plus the full terms, word for word |
-| Privacy Policy & Terms | `/privacy` | `/he/privacy` | Same text as the live site, word for word. The store listings will point here. |
-| Child Safety (CSAE) | `/child-safety` | `/he/child-safety` | Word for word. URL for Play Console's child-safety field. |
-| **Delete your account** | `/delete-account` | `/he/delete-account` | **New.** Google Play requires a web page where users can request deletion outside the app. The URL goes in Play Console's "Delete account URL" field. Contents in §3.4. |
-| Contact | `/contact` | `/he/contact` | Support email, how to report a user or content, link to the deletion page |
-| 404 | — | — | "Not found" page (real 404 status) with store buttons |
-| ~~Imprint~~ | — | — | **Deferred** by Eran. Listed as a **pre-launch check** (§11), since a German operator falls under §5 DDG. A clearly linked section on Contact may be enough. |
+| Page | English URL | Hebrew URL | German URL | Content |
+|---|---|---|---|---|
+| Home | `/` | `/he/` | `/de` | Marketing and download page. Also the landing page for links shared from the app. |
+| Founders Club | `/founders-club` | `/he/founders-club` | `/de/founders-club` | Explainer plus the full terms, word for word |
+| Privacy Policy & Terms | `/privacy` | `/he/privacy` | `/de/privacy` | Original legal texts, word for word. German reuses English with a note. The store listings will point here. |
+| Child Safety (CSAE) | `/child-safety` | `/he/child-safety` | `/de/child-safety` | Original legal text, word for word; English with a German note on `/de`. URL for Play Console's child-safety field. |
+| **Delete your account** | `/delete-account` | `/he/delete-account` | `/de/delete-account` | **New.** Google Play requires a web page where users can request deletion outside the app. The URL goes in Play Console's "Delete account URL" field. Contents in §3.4. |
+| Contact | `/contact` | `/he/contact` | `/de/contact` | Support email, how to report a user or content, link to the deletion page |
+| 404 | — | — | — | Shared "Not found" page (real 404 status) with all three languages and store buttons |
+| ~~Imprint~~ | — | — | — | **Deferred** by Eran. Listed as a **pre-launch check** (§11), since a German operator falls under §5 DDG. A clearly linked section on Contact may be enough. |
+
+The German Founders Club explainer is translated; its full terms reuse the English original with a German note.
 
 **Header:** logo + "CAT" · Home · Founders Club · Contact · language picker · "Download" button.
 **Footer:** tagline, store badges, links (Founders Club, Privacy & Terms, Child Safety, Delete Account, Contact), © 2026 LDB Local Developing Britain GmbH.
@@ -121,7 +124,7 @@ It replaces the current Google Sites site at www.come-and-talk.com. Every existi
 
 ### 3.2 Founders Club page
 
-When enrollment closes, edit the invitation text by hand and keep the terms on the page. There's no switch for this (Eran's decision, §13). Change the recruitment copy in **both** `en.ts` and `he.ts`:
+When enrollment closes, edit the invitation text by hand and keep the terms on the page. There's no switch for this (Eran's decision, §13). Change the recruitment copy in **every language dictionary** (`en.ts`, `he.ts`, and `de.ts`):
 - `founders`: title, lead, steps, and the Founders Club page's StoreBadges/steps card;
 - `home.foundersBand`, which you might remove instead;
 - the FAQ answer "What is the Founders Club?" ("See how to join…");
@@ -154,6 +157,7 @@ When enrollment closes, edit the invitation text by hand and keep the terms on t
 ### 3.3 Legal pages
 
 - `/privacy` and `/he/privacy`: exactly the text of the live `/english` and `/עברית` pages, with section anchors.
+- `/de/privacy`: the original English legal texts, with German navigation and an English-content note in German. The contents list and section labels follow the legal content's language.
 - After launch, Eran updates the privacy URL in App Store Connect and Play Console.
 
 ### 3.4 Delete account page
@@ -191,9 +195,9 @@ When enrollment closes, edit the invitation text by hand and keep the terms on t
 
 ## 5. Languages and RTL
 
-- **English is the default, at the root** (`/`). **Hebrew at `/he/`**, full RTL.
+- **English is the default, at the root** (`/`). **Hebrew at `/he/`**, full RTL. **German at `/de`**, LTR.
 - More languages later: one translation file each, plus the English legal text with a note.
-- No automatic language redirect. The language picker (a dropdown, ready for more languages) keeps you on the same page (`/founders-club` ↔ `/he/founders-club`).
+- No automatic language redirect. The language picker (a dropdown, ready for more languages) keeps you on the same page (`/founders-club` ↔ `/he/founders-club` ↔ `/de/founders-club`).
 - RTL is done properly: `dir="rtl"`, direction-aware spacing, arrows that flip. Mixed Hebrew/English text (CAT, store names, emails) is wrapped so it reads correctly.
 
 ---
@@ -207,7 +211,7 @@ When enrollment closes, edit the invitation text by hand and keep the terms on t
 | 3 | **Measurement** | ✅ **Cloudflare Web Analytics** for traffic (it can't count button clicks). ✅ **App Store:** plain links; App Store Connect's Web Referrer report shows website downloads by domain. ✅ **Google Play:** links carry `&referrer=utm_source%3Dcome-and-talk.com%26utm_medium%3Dwebsite`. |
 | 4 | SEO (meta, Open Graph, canonical, hreflang) | ✅ |
 | 5 | JSON-LD | ✅ Organization + MobileApplication. ❌ **No FAQPage** markup (low value, per review) |
-| 6 | Sitemap (EN + HE) + robots.txt | ✅ |
+| 6 | Sitemap (EN + HE + DE) + robots.txt | ✅ |
 | 7 | **Preview indexing** | ❌ No switch. Nothing links to the preview, and every page's canonical URL points at `https://www.come-and-talk.com`. A forgotten launch-day flip would be riskier than the preview being crawled. |
 | 8 | `/join` deep-link page | ❌ Not needed |
 | 9 | Contact page, email only | ✅ |
@@ -228,13 +232,14 @@ When enrollment closes, edit the invitation text by hand and keep the terms on t
 - **Strip the blog starter.** Add **`.nvmrc`** (Node 22).
 - **i18n:**
   - Astro i18n config.
-  - Typed dictionaries `src/i18n/en.ts` and `he.ts`.
+  - Typed dictionaries `src/i18n/en.ts`, `he.ts`, and `de.ts`.
   - Each page written once as a view, with thin route files for `/x` and `/[lang]/x`.
 - **Legal text:** Markdown in a content collection (`src/content/legal/{en,he}/…`), word for word.
+  - `src/lib/legal.ts` maps German to the English legal texts; shared views show a German note and mark English sections with `lang="en"` and `dir="ltr"`.
 - **`src/config.ts`** holds:
   - store URLs and campaign parameters;
   - support email and company name;
-- **Official store badges**, downloaded into `public/badges/` (approved by Eran). English badges on both languages: Apple's Hebrew badge couldn't be downloaded from here, and a mixed pair looked inconsistent.
+- **Official store badges**, downloaded into `public/badges/` (approved by Eran). English badges in all languages: Apple's Hebrew badge couldn't be downloaded from here, and a mixed pair looked inconsistent.
 - **Redirects:** the template's `.assetsignore` excludes `_redirects`, so the 301s are small on-demand routes inside the Worker.
 - **URLs without a trailing slash** (`build.format: "file"`). Check how the trailing-slash variants behave on the preview (§12).
 
@@ -265,7 +270,7 @@ src/
   config.ts       store URLs, email, company name
   components/     Header, Footer, LanguageSwitcher, SEO, StoreBadges, FeatureCard, FAQ…
   layouts/        MainLayout.astro
-  i18n/           en.ts, he.ts, utils.ts
+  i18n/           en.ts, he.ts, de.ts, index.ts, pages.ts
   content/legal/  en/{privacy,founders-club,child-safety}.md, he/…
   views/          HomePage, FoundersClubPage, LegalPage, DeleteAccountPage, ContactPage, NotFoundPage
   pages/          index, founders-club, privacy, child-safety, delete-account, contact, 404, legacy redirect routes
@@ -295,7 +300,7 @@ public/
 
 ## 9. Materials
 
-**Have:** 1024px icons (default/dark/tinted), splash illustration (1042×1509), small mascot, 3 App Store screenshots, app strings EN + HE, legal texts EN + HE, support email, company name.
+**Have:** 1024px icons (default/dark/tinted), splash illustration (1042×1509), small mascot, 3 App Store screenshots, app strings EN + HE + DE, legal texts EN + HE, support email, company name.
 
 **Nice to have:** a transparent, high-resolution green cat mascot. Hebrew screenshots.
 
@@ -306,7 +311,7 @@ public/
 | # | Topic | Decision |
 |---|---|---|
 | Q1 | Google Play | Agreed Play URL, always linked. |
-| Q2 | Languages | EN + HE |
+| Q2 | Languages | EN + HE + DE (German added 2026-11-10; §14) |
 | Q3 | Legal structure | Privacy & Terms + Child Safety + Founders Club + **Delete Account** |
 | Q4 | Founders Club copy | Claude drafts (§3.2), following the terms |
 | Q5 | Deep links | Not needed |
@@ -352,19 +357,22 @@ No open questions remain.
 
 ## 12. Acceptance checklist (for Eran's testing on the preview)
 
-- [ ] Every page renders in EN and HE. Hebrew is RTL, and mixed Hebrew/English text reads correctly.
-- [ ] The language picker keeps the current page, and closes with Escape or a click outside.
+- [ ] Every page renders in EN, HE and DE. Hebrew is RTL; German is LTR. Mixed Hebrew/English text reads correctly.
+- [ ] All six German routes work with and without a trailing slash: `/de`, `/de/founders-club`, `/de/privacy`, `/de/child-safety`, `/de/delete-account`, `/de/contact`.
+- [ ] The language picker keeps the current page when switching between English, עברית and Deutsch, and closes with Escape or a click outside.
+- [ ] `/de/privacy`, `/de/child-safety` and `/de/founders-club` show the German note before the original English legal texts. English content has `lang="en"` and `dir="ltr"`; the privacy contents list and section labels use English consistently.
 - [ ] Legacy redirects return **301** to the right page:
   - `/english`, `/cat-founders-club`, `/עברית`, `/מועדון-המייסדים`
   - with and without a trailing slash
   - the Hebrew ones also percent-encoded
 - [ ] Page URLs work with and without a trailing slash, and canonical URLs have no trailing slash.
-- [ ] An unknown URL returns **status 404** and the 404 page.
+- [ ] An unknown URL, including one under `/de`, returns **status 404** and the shared 404 page with German copy and a link to `/de`.
 - [ ] Store badges go to the correct URLs (with campaign parameters). iOS and Android visitors see their own store first.
 - [ ] Every page has a canonical URL on `https://www.come-and-talk.com`. Only the 404 page has `noindex`.
+- [ ] The sitemap includes all six `/de` pages. SEO alternates include `hreflang="de"`, German pages use `og:locale="de_DE"`, and the German home page's WebSite JSON-LD uses `inLanguage: "de"`.
 - [ ] Keyboard only: skip link, visible focus, and the menu and language switcher work.
 - [ ] Contrast is readable in light and dark themes.
-- [ ] Mobile at 360px wide: no horizontal scrolling.
+- [ ] Mobile at 360px wide: no horizontal scrolling, including German headings, navigation and buttons.
 - [ ] Legal texts match the old site word for word (except "klub" → "club").
 - [ ] Hebrew legal page doesn't include the old site's internal "דגשים חשובים עבורך כבעל האפליקציה" note (§13).
 

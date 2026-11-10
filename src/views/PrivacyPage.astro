@@ -24,10 +24,11 @@ const TermsContent = terms.Content;
 const PrivacyContent = privacy.Content;
 const ChildSafetyContent = childSafety.Content;
 const FoundersContent = founders.Content;
+const privacySectionLabel = useTranslations(privacy.lang).legal.privacySection;
 
 const contents = [
 	{ id: "terms", label: terms.data.title, lang: terms.lang },
-	{ id: "privacy", label: t.legal.privacySection, lang },
+	{ id: "privacy", label: privacySectionLabel, lang: privacy.lang },
 	{ id: "child-safety", label: childSafety.data.title, lang: childSafety.lang },
 	{ id: "founders-club-terms", label: founders.data.addendumTitle ?? founders.data.title, lang: founders.lang },
 ];
@@ -65,7 +66,7 @@ const contents = [
 				class="prose legal__section"
 				lang={privacy.lang}
 				dir={isRTL(privacy.lang) ? "rtl" : "ltr"}
-				aria-label={privacy.lang === lang ? t.legal.privacySection : privacy.data.title}
+				aria-label={privacySectionLabel}
 			>
 				<PrivacyContent />
 			</section>
