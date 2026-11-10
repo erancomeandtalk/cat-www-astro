@@ -236,6 +236,7 @@ const he: Dictionary = {
 		onThisPage: "בעמוד זה",
 		privacySection: "מדיניות פרטיות",
 		relatedTitle: "קישורים נוספים",
+		englishNotice: "הטקסטים המשפטיים הבאים זמינים באנגלית.",
 	},
 
 	deleteAccount: {

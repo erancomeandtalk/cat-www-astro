@@ -1,5 +1,6 @@
 import en from "./en";
 import he from "./he";
+import de from "./de";
 import { pages, type PageKey } from "./pages";
 
 export { pages, type PageKey };
@@ -7,13 +8,14 @@ export { pages, type PageKey };
 export const languages = {
 	en: "English",
 	he: "עברית",
+	de: "Deutsch",
 } as const;
 
 export type Lang = keyof typeof languages;
 
 export const defaultLang: Lang = "en";
 
-const dictionaries = { en, he };
+const dictionaries = { en, he, de };
 
 const rtlLangs: readonly Lang[] = ["he"];
 
@@ -21,6 +23,7 @@ const rtlLangs: readonly Lang[] = ["he"];
 export const ogLocales: Record<Lang, string> = {
 	en: "en_US",
 	he: "he_IL",
+	de: "de_DE",
 };
 
 export function useTranslations(lang: Lang) {

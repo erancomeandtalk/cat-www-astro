@@ -396,3 +396,11 @@ Expect a few errors on the first build, since the code was never compiled. Send 
 - **Analytics:** no snippet in the code. After launch, turn on Web Analytics' automatic setup for `come-and-talk.com` in the Cloudflare dashboard.
 - **No switches (Eran's decision):** the planned `PLAY_STORE_LIVE`, `FOUNDERS_ENROLLMENT_OPEN`, `ALLOW_INDEXING` and analytics-token switches were removed. `src/config.ts` holds only store URLs, email and company name. `robots.txt` is a static file in `public/`.
 - **App links:** the app's settings screen also opens the site root for "Privacy Policy" and "Terms of Service" (`settings_screen.dart:403–413`), in addition to the sign-in screen (§4).
+
+## 14. German language (2026-11-10)
+
+- German UI at `/de` and the same six page paths as English and Hebrew.
+- Copy in `src/i18n/de.ts`, using feature names from the app's `app_de.arb`. Founders Club profit-sharing wording follows the website's terms (§3.2).
+- German is included in the language picker, SEO alternates, sitemap and shared 404 page.
+- Legal content reuses the original English texts with a German note, as planned in §5. English content is marked with `lang="en"`.
+- Changes left uncommitted. Builds, browser checks and deployment remain for Eran, per §0.

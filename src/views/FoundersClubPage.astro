@@ -4,7 +4,7 @@ import MainLayout from "../layouts/MainLayout.astro";
 import StoreBadges from "../components/StoreBadges.astro";
 import Icon from "../components/Icon.astro";
 import mascot from "../assets/mascot.png";
-import { useTranslations, type Lang } from "../i18n";
+import { isRTL, useTranslations, type Lang } from "../i18n";
 import { loadLegal } from "../lib/legal";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const f = t.founders;
-const { Content: Terms } = await loadLegal(lang, "founders-club");
+const { Content: Terms, lang: contentLang } = await loadLegal(lang, "founders-club");
 ---
 
 <MainLayout lang={lang} page="founders" title={t.meta.founders.title} description={t.meta.founders.description}>
@@ -64,7 +64,8 @@ const { Content: Terms } = await loadLegal(lang, "founders-club");
 	<section class="section section--soft" id="terms" aria-labelledby="terms-title">
 		<div class="container container--narrow">
 			<h2 id="terms-title" class="section__title section__title--start">{f.termsTitle}</h2>
-			<div class="prose">
+			{contentLang !== lang && <p class="fine-print">{t.legal.englishNotice}</p>}
+			<div class="prose" lang={contentLang} dir={isRTL(contentLang) ? "rtl" : "ltr"}>
 				<Terms />
 			</div>
 		</div>

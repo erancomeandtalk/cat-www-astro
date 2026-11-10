@@ -251,6 +251,7 @@ const en = {
 		onThisPage: "On this page",
 		privacySection: "Privacy Policy",
 		relatedTitle: "Related",
+		englishNotice: "The following legal texts are available in English.",
 	},
 
 	deleteAccount: {

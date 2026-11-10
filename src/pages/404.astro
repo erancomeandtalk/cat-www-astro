@@ -4,11 +4,13 @@ import MainLayout from "../layouts/MainLayout.astro";
 import StoreBadges from "../components/StoreBadges.astro";
 import Icon from "../components/Icon.astro";
 import mascot from "../assets/mascot.png";
-import { pathFor, useTranslations } from "../i18n";
+import { defaultLang, isRTL, languages, pathFor, useTranslations, type Lang } from "../i18n";
 
-// One 404 page for both languages: English first, with a Hebrew block.
-const en = useTranslations("en");
-const he = useTranslations("he");
+// One 404 page: English first, followed by every other supported language.
+const en = useTranslations(defaultLang);
+const alternateLanguages = (Object.keys(languages) as Lang[])
+	.filter((lang) => lang !== defaultLang)
+	.map((lang) => ({ lang, t: useTranslations(lang) }));
 ---
 
 <MainLayout lang="en" title={en.meta.notFound.title} description={en.meta.notFound.description} noindex>
@@ -23,14 +25,18 @@ const he = useTranslations("he");
 				<a class="btn btn--secondary" href={pathFor("contact", "en")}>{en.notFound.contact}</a>
 			</div>
 
-			<div class="not-found__alt" lang="he" dir="rtl">
-				<h2 class="not-found__alt-title">{he.notFound.title}</h2>
-				<p>{he.notFound.text}</p>
-				<a class="text-link" href={pathFor("home", "he")}>
-					{he.notFound.home}
-					<Icon name="arrow" size={16} />
-				</a>
-			</div>
+			{
+				alternateLanguages.map(({ lang, t }) => (
+					<div class="not-found__alt" lang={lang} dir={isRTL(lang) ? "rtl" : "ltr"}>
+						<h2 class="not-found__alt-title">{t.notFound.title}</h2>
+						<p>{t.notFound.text}</p>
+						<a class="text-link" href={pathFor("home", lang)}>
+							{t.notFound.home}
+							<Icon name="arrow" size={16} />
+						</a>
+					</div>
+				))
+			}
 
 			<StoreBadges lang="en" size="md" center />
 		</div>

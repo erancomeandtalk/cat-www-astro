@@ -19,7 +19,7 @@ export default defineConfig({
 		sitemap({
 			i18n: {
 				defaultLocale: "en",
-				locales: { en: "en", he: "he" },
+				locales: { en: "en", he: "he", de: "de" },
 			},
 			filter: (page) => !page.endsWith("/404"),
 		}),

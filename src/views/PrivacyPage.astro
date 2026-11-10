@@ -1,6 +1,6 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import { useTranslations, type Lang } from "../i18n";
+import { isRTL, useTranslations, type Lang } from "../i18n";
 import { loadLegal } from "../lib/legal";
 
 // The full legal page, in the same order as the old Google Sites page:
@@ -26,10 +26,10 @@ const ChildSafetyContent = childSafety.Content;
 const FoundersContent = founders.Content;
 
 const contents = [
-	{ id: "terms", label: terms.data.title },
-	{ id: "privacy", label: t.legal.privacySection },
-	{ id: "child-safety", label: childSafety.data.title },
-	{ id: "founders-club-terms", label: founders.data.addendumTitle ?? founders.data.title },
+	{ id: "terms", label: terms.data.title, lang: terms.lang },
+	{ id: "privacy", label: t.legal.privacySection, lang },
+	{ id: "child-safety", label: childSafety.data.title, lang: childSafety.lang },
+	{ id: "founders-club-terms", label: founders.data.addendumTitle ?? founders.data.title, lang: founders.lang },
 ];
 ---
 
@@ -38,7 +38,8 @@ const contents = [
 		<div class="container container--narrow">
 			<header class="legal__header">
 				{privacy.data.operator && <p class="eyebrow ltr-text">{privacy.data.operator}</p>}
-				<h1 class="page-title">{privacy.data.title}</h1>
+				<h1 class="page-title">{privacy.lang === lang ? privacy.data.title : t.nav.privacy}</h1>
+				{privacy.lang !== lang && <p class="fine-print">{t.legal.englishNotice}</p>}
 			</header>
 
 			<nav class="toc" aria-labelledby="toc-title">
@@ -47,28 +48,34 @@ const contents = [
 					{
 						contents.map((item) => (
 							<li>
-								<a href={`#${item.id}`}>{item.label}</a>
+								<a href={`#${item.id}`} lang={item.lang}>{item.label}</a>
 							</li>
 						))
 					}
 				</ol>
 			</nav>
 
-			<section id="terms" class="prose legal__section">
+			<section id="terms" class="prose legal__section" lang={terms.lang} dir={isRTL(terms.lang) ? "rtl" : "ltr"}>
 				<h2>{terms.data.title}</h2>
 				<TermsContent />
 			</section>
 
-			<section id="privacy" class="prose legal__section" aria-label={t.legal.privacySection}>
+			<section
+				id="privacy"
+				class="prose legal__section"
+				lang={privacy.lang}
+				dir={isRTL(privacy.lang) ? "rtl" : "ltr"}
+				aria-label={privacy.lang === lang ? t.legal.privacySection : privacy.data.title}
+			>
 				<PrivacyContent />
 			</section>
 
-			<section id="child-safety" class="prose legal__section">
+			<section id="child-safety" class="prose legal__section" lang={childSafety.lang} dir={isRTL(childSafety.lang) ? "rtl" : "ltr"}>
 				<h2>{childSafety.data.title}</h2>
 				<ChildSafetyContent />
 			</section>
 
-			<section id="founders-club-terms" class="prose legal__section">
+			<section id="founders-club-terms" class="prose legal__section" lang={founders.lang} dir={isRTL(founders.lang) ? "rtl" : "ltr"}>
 				<h2>{founders.data.addendumTitle ?? founders.data.title}</h2>
 				<FoundersContent />
 			</section>

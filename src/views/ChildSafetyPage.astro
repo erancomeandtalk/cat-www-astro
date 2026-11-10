@@ -1,7 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import Icon from "../components/Icon.astro";
-import { pathFor, useTranslations, type Lang } from "../i18n";
+import { isRTL, pathFor, useTranslations, type Lang } from "../i18n";
 import { loadLegal } from "../lib/legal";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const { data, Content } = await loadLegal(lang, "child-safety");
+const { data, Content, lang: contentLang } = await loadLegal(lang, "child-safety");
 ---
 
 <MainLayout lang={lang} page="childSafety" title={t.meta.childSafety.title} description={t.meta.childSafety.description}>
@@ -18,9 +18,10 @@ const { data, Content } = await loadLegal(lang, "child-safety");
 		<div class="container container--narrow">
 			<header class="legal__header">
 				<p class="eyebrow ltr-text">CAT - Come And Talk</p>
-				<h1 class="page-title">{data.title}</h1>
+				<h1 class="page-title">{contentLang === lang ? data.title : t.home.safety.childSafetyLink}</h1>
+				{contentLang !== lang && <p class="fine-print">{t.legal.englishNotice}</p>}
 			</header>
-			<div class="prose">
+			<div class="prose" lang={contentLang} dir={isRTL(contentLang) ? "rtl" : "ltr"}>
 				<Content />
 			</div>
 
